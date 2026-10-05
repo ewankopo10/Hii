@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simple Message</title>
+
+    <style>
+        /* Whole page */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #87ceeb, #fff3b0);
+            font-family: Arial, Helvetica, sans-serif;
+
+            overflow: hidden;
+        }
+
+        /* Main message box */
+        .message-box {
+            width: 85%;
+            max-width: 500px;
+            padding: 35px 25px;
+
+            background: #FFD966;
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Title */
+        h1 {
+            margin-top: 0;
+            color: #1E3A8A;
+            font-size: 32px;
+        }
+
+        /* Body */
+        p {
+            color: #333333;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Button */
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+
+            border: none;
+            border-radius: 25px;
+
+            background: #2563EB;
+            color: white;
+
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1D4ED8;
+        }
+
+        /* Hearts */
+        .heart {
+            position: fixed;
+            pointer-events: none;
+
+            font-size: 25px;
+
+            animation: pop 1.5s ease-out forwards;
+
+            z-index: 10;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(
+                    calc(var(--x) * 1px),
+                    calc(var(--y) * 1px)
+                ) scale(1.5);
+
+                opacity: 0;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .message-box {
+                width: 80%;
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="message-box">
+
+        <h1>Simple Message 💙💛</h1>
+
+        <p>
+            This is a simple message for you.
+            I hope this little page makes you smile.
+        </p>
+
+        <button onclick="createHearts()">
+            Click Me 💙
+        </button>
+
+    </div>
+
+    <script>
+
+        function createHearts() {
+
+            for (let i = 0; i < 15; i++) {
+
+                const heart = document.createElement("div");
+
+                heart.classList.add("heart");
+
+                // Randomly choose blue or yellow
+                if (Math.random() < 0.5) {
+                    heart.innerHTML = "💙";
+                } else {
+                    heart.innerHTML = "💛";
+                }
+
+                // Start around the button
+                const button = document.querySelector("button");
+                const rect = button.getBoundingClientRect();
+
+                heart.style.left =
+                    rect.left + rect.width / 2 + "px";
+
+                heart.style.top =
+                    rect.top + rect.height / 2 + "px";
+
+                // Random movement
+                heart.style.setProperty(
+                    "--x",
+                    Math.random() * 300 - 150
+                );
+
+                heart.style.setProperty(
+                    "--y",
+                    Math.random() * -300 - 50
+                );
+
+                document.body.appendChild(heart);
+
+                // Remove after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 1500);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
